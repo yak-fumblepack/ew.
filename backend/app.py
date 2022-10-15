@@ -24,9 +24,17 @@ def classify():
 
     result = predict(path)
 
-    print(result)
+    primary_class_label = result["classLabels"]
+    hives = result["classLabelprobs"]["hives"]
+    acne = result["classLabelprobs"]["acne"]
+    eczema = result["classLabelprobs"]["eczema"]
 
-    return "OK", 200
+    return {
+        "primary_class_label": primary_class_label,
+        "hives": "{:.2f}".format(hives),
+        "acne": "{:.2f}".format(acne),
+        "eczema": "{:.2f}".format(eczema),
+    }
 
 
 if __name__ == "__main__":
