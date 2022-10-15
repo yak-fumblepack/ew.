@@ -10,12 +10,8 @@ const Home = () => {
       <div className="p-5">
         <div className="flex flex-row justify-between">
           <img src={logo} className="w-16 pr-6" alt="logo" />
-          <Link className="text-xl text-slate-400 pt-2">Diagnosis</Link>
+          <Link className="text-xl text-slate-400 pt-2" to="/dashboard/upload">Diagnosis</Link>
           <Link className="text-xl text-slate-400 pt-2">Doctors</Link>
-          <div className="pt-2">
-            <Link to="/login" className="text-xl text-slate-400 px-4">Login</Link>
-            <Link to="/register" className="text-xl text-slate-400 px-3 bg-[#C9FDD7] pt-1 pb-2 rounded-lg hover:underline transition ease-in-out ">Sign Up</Link>
-          </div>
         </div>
 
         <div className="container py-10 mt-32">
@@ -27,7 +23,7 @@ const Home = () => {
               </div>
               <div className="py-11">
                 <div className="flex flex-row">
-                  <Link to="/" className="py-2 px-3 rounded-lg text-xl bg-[#79D1C3] text-[#C9FDD7]">Get Started</Link>
+                  <Link to="/dashboard/upload" className="py-2 px-3 rounded-lg text-xl bg-[#79D1C3] text-[#C9FDD7]">Get Started</Link>
                 </div>
               </div>
             </div>

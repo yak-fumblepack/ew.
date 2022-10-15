@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../pages/home';
-import Login from '../pages/login';
-import Register from '../pages/signup';
+import PhotoPage from '../pages/photo';
+
 
 
 const App = () => {
@@ -12,9 +12,8 @@ const App = () => {
             <Router>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
                     <Route path="*" element={<h1>404</h1>} />
+                    <Route path="/dashboard/upload" element={<PhotoPage />} />
                 </Routes>
             </Router>
         </div>

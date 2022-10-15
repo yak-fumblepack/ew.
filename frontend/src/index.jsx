@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './routes/App';
 import reportWebVitals from './reportWebVitals';
 import './main.css'
+import 'flowbite';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
