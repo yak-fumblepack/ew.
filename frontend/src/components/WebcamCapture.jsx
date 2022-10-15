@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Webcam from "react-webcam";
-import { BsArrowBarLeft } from 'react-icons/bs';
 
 const videoConstraints = {
   width: 1100, // 220*5 = 1100
@@ -77,13 +76,13 @@ export const WebcamCapture = () => {
               className="w-full px-3 py-2 bg-[#79D1C3] text-[#C9FDD7] hover:text-white rounded-lg">Capture</button>
           }
         </div>
-        <div className="py-4">
-
-          <p className='p-4 border border-2 rounded-lg '>
-            <h1 className="font-bold">Note:</h1>
-            For a more accurate diagnoses of your skin condition, the AI/ML Tool will require you to take a clear photo of your patch of skin. Please ensure that the photo is taken in <span className='underline decoration-[#79D1C3] decoration-4'>good lighting</span> and that the patch of skin is <span className='underline decoration-[#79D1C3] decoration-4'>clearly visible</span>.</p>
+        <div className="py-4 inline-flex items-center">
+          <input type="checkbox" name="" id="" className='form-checkbox rounded text-[#79D1C3]' />
+          <span class="ml-2">I confirm this is the best quality image I have obtained to the most of my abilities</span>
         </div>
-        <button type="submit" id="login-button" onClick={() => submitForm()}>Submit</button>
+        <div className="text-center mb-24">
+          <button type="submit" id="login-button" className="w-full px-3 py-2 bg-[#79D1C3] text-white hover:text-white rounded-lg" onClick={() => submitForm()}>Submit</button>
+        </div>
       </form>
     </div>
   );
