@@ -31,9 +31,9 @@ def classify():
 
     return {
         "primary_class_label": primary_class_label,
-        "hives": "{:.2f}".format(hives),
-        "acne": "{:.2f}".format(acne),
-        "eczema": "{:.2f}".format(eczema),
+        "hives": "{:.4f}".format(hives),
+        "acne": "{:.4f}".format(acne),
+        "eczema": "{:.4f}".format(eczema),
     }
 
 
