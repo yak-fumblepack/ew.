@@ -12,7 +12,7 @@ def load_image(path, resize_to=None):
     return img_np, img
 
 
-def classify(path):
+def predict(path):
     model = ct.models.MLModel("SkinConditionClassifier.mlmodel")
     height = 299
     width = 299
@@ -20,4 +20,7 @@ def classify(path):
     _, img = load_image(path, resize_to=(width, height))
     out_dict = model.predict({"image": img})
 
-    return out_dict["classLabel"], out_dict["classLabelProbs"]
+    return {
+        "classLabels": out_dict["classLabel"],
+        "classLabelprobs": out_dict["classLabelProbs"],
+    }
