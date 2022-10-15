@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Webcam from "react-webcam";
@@ -23,7 +24,13 @@ export const WebcamCapture = () => {
   const submitForm = () => {
     if (!image) return
     alert("Form submitted");
-    console.log(image);
+    axios.post('http://localhost:3842/classify', { image: image },
+      { headers: { 'Content-Type': 'application/json' } }
+    ).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    });
     alert(image);
   }
 
