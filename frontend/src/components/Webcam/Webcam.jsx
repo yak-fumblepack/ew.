@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Webcam from "react-webcam";
-import './App.css';
 import axios from 'axios'
 
 
@@ -24,11 +23,10 @@ export const WebcamCapture = () => {
         setImage(imageSrc)
         });
 
-    const submitForm = () => {
-        if (!image) return
+    const submitForm = (pic) => {
+        if (!pic) return
         alert("Form submitted");
-        console.log(image);
-        alert(image);
+        console.log(pic);
     }
 
 
@@ -61,23 +59,8 @@ export const WebcamCapture = () => {
                             className="webcam-btn">Capture</button>
                     }
                 </div>
-                <button type="submit" id="login-button" onClick={() => submitForm()}>Submit</button>
+                <button type="submit" id="login-button" onClick={(image) => submitForm(image)}>Submit</button>
             </form>
         </div>
     );
 };
-
-const App = () => {
-    return (
-        <div className="home-container">
-            <div className="container">
-                <div className="text">
-                    <h1>ewmu</h1>
-                    <WebcamCapture />
-                </div>
-            </div>
-        </div>
-    )
-}
-
-export default App;
