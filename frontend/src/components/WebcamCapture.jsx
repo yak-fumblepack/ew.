@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 import Webcam from "react-webcam";
 
 const videoConstraints = {
@@ -10,12 +10,12 @@ const videoConstraints = {
 };
 
 export const WebcamCapture = () => {
-  const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
 
   const [image, setImage] = useState('');
   const webcamRef = React.useRef(null);
   const [result, setResult] = useState(null);
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
 
   const capture = React.useCallback(
@@ -47,7 +47,8 @@ export const WebcamCapture = () => {
     }, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then(res => {
         console.log(res.data);
-        setResult(res.data)
+        setResult(res.data);
+        setLoading(false);
       })
   }
 
@@ -64,6 +65,10 @@ export const WebcamCapture = () => {
   return (
 
     <div className="container mx-auto px-96">
+
+      {loading ? null : <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+        <span class="font-medium">Success, your report is generated!</span> Click <Link to="/dashboard" state={{ condition: result['primary_class_label'], acne_percent: result['acne'], hives_percent: result['hives'], eczema_percent: result['eczema'] }} className="font-extrabold">here</Link> to see the report.
+      </div>}
 
       <div className="py-4">
 
