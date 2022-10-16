@@ -183,7 +183,7 @@ const StatisticsPage = () => {
                   </div>
                 </p>
               </div>
-              <div className="w-2/3">
+              <div className="w-2/3 h-fit">
                 <Bar
                   data={{
                     labels: list_without_top_1.map((item) => item.disease),
@@ -217,6 +217,7 @@ const StatisticsPage = () => {
 
           </div>
           <div className="mb-24">
+            <h1 className="text-xl font-bold pb-3">Recommended OTC Medications</h1>
             <Medications />
           </div>
         </div>

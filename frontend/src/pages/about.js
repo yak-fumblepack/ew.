@@ -1,11 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from '../assets/images/logo.png';
-import ewmu2 from '../assets/images/ewmu2.png';
-import { FaGithub } from 'react-icons/fa';
 
-
-const Home = () => {
+const AboutPage = () => {
   return (
     <div className="container mx-auto">
       <div className="p-5">
@@ -39,7 +35,7 @@ const Home = () => {
 
       </div>
     </div >
-  )
+  );
 }
 
-export default Home;
+export default AboutPage;
