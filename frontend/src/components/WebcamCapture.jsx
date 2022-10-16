@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Webcam from "react-webcam";
 
@@ -10,35 +10,60 @@ const videoConstraints = {
 };
 
 export const WebcamCapture = () => {
+  const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
 
   const [image, setImage] = useState('');
   const webcamRef = React.useRef(null);
+  const [result, setResult] = useState(null);
+  const [file, setFile] = useState(null);
 
 
   const capture = React.useCallback(
     () => {
       const imageSrc = webcamRef.current.getScreenshot();
       setImage(imageSrc)
+      setFile(dataURLtoFile(imageSrc, 'image.png'))
     }, []);
 
-  const submitForm = () => {
-    if (!image) return
-    alert("Form submitted");
-    axios.post('http://localhost:3842/classify', { image: image },
-      { headers: { 'Content-Type': 'application/json' } }
-    ).then(res => {
-      console.log(res);
-    }).catch(err => {
-      console.log(err);
-    });
-    alert(image);
+  function dataURLtoFile(dataurl, filename) {
+
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
   }
 
+  const submitForm = (e) => {
+    e.preventDefault();
+    axios.post('http://127.0.0.1:3842/classify', {
+      image: file
+    }, { headers: { 'Content-Type': 'multipart/form-data' } })
+      .then(res => {
+        console.log(res.data);
+        setResult(res.data)
+      })
+  }
+
+  useEffect(() => {
+    console.log('image', file)
+  }, [file])
+
+  useEffect(() => {
+    if (image) {
+      setImage(image)
+    }
+  }, [image])
 
   return (
 
     <div className="container mx-auto px-96">
-
 
       <div className="py-4">
 
@@ -49,7 +74,7 @@ export const WebcamCapture = () => {
         </p>
       </div>
 
-      <form className="pt-3">
+      <form className="pt-3" >
         <div className="py-4">
 
           <p className='p-4 border border-2 rounded-lg '>
@@ -87,9 +112,11 @@ export const WebcamCapture = () => {
           <input type="checkbox" name="" id="" className='form-checkbox rounded text-[#79D1C3]' />
           <span class="ml-2">I confirm this is the best quality image I have obtained to the most of my abilities</span>
         </div>
+        <input type="file" value={""} onChange={(e) => setFile(e.target.files[0])} />
         <div className="text-center mb-24">
-          <button type="submit" id="login-button" className="w-full px-3 py-2 bg-[#79D1C3] text-white hover:text-white rounded-lg" onClick={() => submitForm()}>Submit</button>
+          <button type="submit" id="login-button" className="w-full px-3 py-2 bg-[#79D1C3] text-white hover:text-white rounded-lg" onClick={submitForm}>Submit</button>
         </div>
+
       </form>
     </div>
   );
