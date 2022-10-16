@@ -1,9 +1,13 @@
 from flask import Flask, request
+import io, base64
+from PIL import Image
 import os
-from werkzeug.utils import secure_filename
+from flask_cors import CORS, cross_origin
 from ml import predict
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+cors = CORS( app, resources={r"/*": {"origins": "*"}})
 
 UPLOAD_FOLDER = "./static"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -15,6 +19,7 @@ def hello_world():
 
 
 @app.route("/classify", methods=["POST"])
+@cross_origin()
 def classify():
     if request.files.get("image") is None:
         return "No image", 400
@@ -25,17 +30,22 @@ def classify():
     result = predict(path)
 
     primary_class_label = result["classLabels"]
-    hives = result["classLabelprobs"]["hives"]
-    acne = result["classLabelprobs"]["acne"]
-    eczema = result["classLabelprobs"]["eczema"]
+    eczema = result["classLabelprobs"]["Eczema Photos"]
+    light_disease = result["classLabelprobs"]["Light Diseases and Disorders of Pigmentation"]
+    melanoma = result["classLabelprobs"]["Melanoma Skin Cancer Nevi and Moles"]
+    acne = result["classLabelprobs"]["Acne and Rosacea Photos"]
+    contact_dermatitis = result["classLabelprobs"]["Poison Ivy Photos and other Contact Dermatitis"]
+    atopic_dermatitis = result["classLabelprobs"]["Atopic Dermatitis Photos"]
 
     return {
         "primary_class_label": primary_class_label,
-        "hives": "{:.4f}".format(hives),
+        "light_disease": "{:.4f}".format(light_disease),
+        "melanoma": "{:.4f}".format(melanoma),
         "acne": "{:.4f}".format(acne),
+        "contact_dermatitis": "{:.4f}".format(contact_dermatitis),
+        "atopic_dermatitis": "{:.4f}".format(atopic_dermatitis),
         "eczema": "{:.4f}".format(eczema),
     }
 
-
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True)
