@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../pages/home';
 import PhotoPage from '../pages/photo';
 import StatisticsPage from '../pages/statistics';
+import Medications from './medications';
 
 
 
@@ -15,7 +16,7 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="*" element={<h1>404</h1>} />
                     <Route path="/dashboard/upload" element={<PhotoPage />} />
-                    <Route path="/dashboard" element={<StatisticsPage />} />
+                    <Route path="/results" element={<StatisticsPage/>} />
                 </Routes>
             </Router>
         </div>

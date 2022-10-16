@@ -42,7 +42,7 @@ export const WebcamCapture = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    axios.post('http://127.0.0.1:3842/classify', {
+    axios.post('http://192.168.43.31/classify', {
       image: file
     }, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then(res => {
@@ -67,7 +67,7 @@ export const WebcamCapture = () => {
     <div className="container mx-auto px-96">
 
       {loading ? null : <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
-        <span class="font-medium">Success, your report is generated!</span> Click <Link to="/dashboard" state={{ condition: result['primary_class_label'], acne_percent: result['acne'], hives_percent: result['hives'], eczema_percent: result['eczema'] }} className="font-extrabold">here</Link> to see the report.
+        <span class="font-medium">Success, your report is generated!</span> Click <Link to="/results" state={{ condition: result['primary_class_label'], scans:[{disease: 'acne', confidence: result['acne']}, {disease: 'eczema', confidence: result['eczema']}, {disease: 'hives', confidence: result['hives']}] }} className="font-extrabold">here</Link> to see the report.
       </div>}
 
       <div className="py-4">
